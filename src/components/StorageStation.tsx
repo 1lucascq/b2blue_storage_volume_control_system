@@ -1,40 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography, Button, Slide, Slider, Box, Tooltip } from '@mui/material';
 import WarningIcon from '@mui/icons-material/Warning';
-
+import TapeWarning from './TapeWarning';
 import { StorageStationProps } from '../ts/types';
 
 const StorageStation: React.FC<StorageStationProps> = ({
     stationName,
     volume,
-    onCollect,
-    onVolumeChange,
+    collectionInProgress,
+    onStartCollection,
+    onCompleteCollection,
+    onStationChange,
 }) => {
-    const [isCollectionAvailable, setIsCollectionAvailable] = useState(false);
-    const [isCollectionRequested, setIsCollectionRequested] = useState(false);
     const [currentVolume, setCurrentVolume] = useState(volume);
-    const collectionVolume = 80;
+    const autoCollectVolume = 80;
 
     const handleSliderChange = (_event: any, newValue: number | number[]) => {
         setCurrentVolume(newValue as number);
     };
 
     useEffect(() => {
-        if (volume >= collectionVolume && !isCollectionAvailable && currentVolume === volume) {
-            setIsCollectionAvailable(true);
-        } else {
-            setIsCollectionAvailable(false);
+        if (volume >= autoCollectVolume && currentVolume === volume) {
+            startCollection();
         }
     }, [volume, currentVolume]);
 
-    function handleCollect() {
-        setIsCollectionRequested(true);
-        console.log('pedido de coleta gerado');
-        setTimeout(() => {
-            onCollect();
-            setIsCollectionAvailable(false);
-            setIsCollectionRequested(false);
-        }, 10000);
+    useEffect(() => {
+        setCurrentVolume(volume);
+    }, [volume]);
+
+    function startCollection() {
+        onStartCollection();
+    }
+
+    async function completeCollection() {
+        await onCompleteCollection();
     }
 
     function handleReset() {
@@ -66,6 +66,8 @@ const StorageStation: React.FC<StorageStationProps> = ({
             </>
         );
     }
+
+    // console.log('rendering StorageStation --> volume', volume, 'currentVolume', currentVolume);
     return (
         <Card
             sx={{
@@ -74,6 +76,7 @@ const StorageStation: React.FC<StorageStationProps> = ({
                 borderColor: 'primary.light',
                 position: 'relative',
                 padding: 4,
+                backgroundColor: 'secondary.light',
             }}
         >
             <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -83,7 +86,7 @@ const StorageStation: React.FC<StorageStationProps> = ({
                     <Typography variant="h5">{stationName}</Typography>
                     <Typography variant="body1" fontWeight="bold">
                         {displayValue()}
-                        {currentVolume !== volume && currentVolume >= collectionVolume && (
+                        {currentVolume !== volume && currentVolume >= autoCollectVolume && (
                             <Tooltip
                                 title="Salve o novo volume para iniciar a coleta"
                                 placement="top"
@@ -97,7 +100,7 @@ const StorageStation: React.FC<StorageStationProps> = ({
                 <Box sx={{ width: '100%' }}>
                     <Slider
                         value={currentVolume}
-                        disabled={isCollectionRequested}
+                        disabled={collectionInProgress}
                         onChange={handleSliderChange}
                         aria-labelledby="continuous-slider"
                         valueLabelDisplay="auto"
@@ -120,9 +123,10 @@ const StorageStation: React.FC<StorageStationProps> = ({
                 <Box display="flex" justifyContent="space-between" width="100%" gap={2}>
                     <Button
                         fullWidth
+                        disabled={collectionInProgress || currentVolume === volume}
                         variant="contained"
                         color="primary"
-                        onClick={() => onVolumeChange(currentVolume)}
+                        onClick={() => onStationChange({ volume: currentVolume })}
                         sx={{
                             animation:
                                 currentVolume !== volume ? 'colorChange 1s infinite' : 'none',
@@ -135,76 +139,31 @@ const StorageStation: React.FC<StorageStationProps> = ({
                     >
                         Atualizar
                     </Button>
-                    <Button fullWidth variant="contained" color="primary" onClick={handleReset}>
+                    <Button
+                        fullWidth
+                        disabled={collectionInProgress || currentVolume === volume}
+                        variant="contained"
+                        color="primary"
+                        onClick={handleReset}
+                    >
                         Redefinir
                     </Button>
                     <Button
-                        disabled={!isCollectionAvailable}
+                        disabled={!collectionInProgress}
                         fullWidth
                         variant="contained"
                         color="primary"
-                        onClick={handleCollect}
+                        onClick={completeCollection}
                     >
                         Confirmar Coleta
                     </Button>
                 </Box>
+                {collectionInProgress && (
+                    <TapeWarning textArr={new Array(10).fill('Coleta em Andamento')} />
+                )}
             </CardContent>
-
-            <Slide
-                direction="up"
-                in={isCollectionRequested}
-                mountOnEnter
-                unmountOnExit
-                timeout={{ enter: 500, exit: 500 }}
-            >
-                <Box
-                    sx={{
-                        position: 'absolute',
-                        bottom: 0,
-                        width: '100%',
-                        backgroundColor: 'tomato',
-                        color: 'white',
-                        textAlign: 'center',
-                        padding: 1,
-                    }}
-                >
-                    Coleta em andamento
-                </Box>
-            </Slide>
         </Card>
     );
 };
 
 export default StorageStation;
-
-// stations = {
-// 	id: string  // PK tabela 1
-// 	stationName: string // tabela 1
-// 	createdAt: date // tabela 1
-
-// }
-// collections = {
-// 	station: stationId // tabela 2
-// 	completedBy: string // (user) tabela 2
-// 	collection: date // PK tabela 2
-// }
-
-// data = {
-// 	stations = {
-// 		stationName: string // tabela 1
-// 		stationId: string  // PK tabela 1
-// 		collections = [
-// 			{
-// 				station: stationId // tabela 2
-// 				completedBy: string // (user) tabela 2
-// 				collection: date // PK tabela 2
-// 			},
-// 			{
-// 				station: stationId // tabela 2
-// 				completedBy: string // (user) tabela 2
-// 				collection: date // PK tabela 2
-// 			}
-// 		]
-// 	}
-
-// }
