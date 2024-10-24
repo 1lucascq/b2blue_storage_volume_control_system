@@ -1,6 +1,6 @@
 // src/components/GenericModal.tsx
 import React from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 
 interface GenericModalProps {
 	open: boolean;
@@ -12,7 +12,7 @@ interface GenericModalProps {
 
 const GenericModal: React.FC<GenericModalProps> = ({ open, title, content, actions, onClose }) => {
 	return (
-		<Dialog open={open} onClose={onClose}>
+		<Dialog open={open} onClose={onClose} disableScrollLock fullWidth>
 			<DialogTitle>{title}</DialogTitle>
 			<DialogContent>{content}</DialogContent>
 			<DialogActions>{actions}</DialogActions>
