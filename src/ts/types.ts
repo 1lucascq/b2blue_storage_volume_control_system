@@ -40,3 +40,12 @@ export interface StorageStationProps {
 export interface TapeWarningProps {
     textArr: string[];
 }
+
+export interface ReportsModalProps {
+    open: boolean;
+    onClose: () => void;
+}
+
+export interface ReportsTableProps {
+    reports: Report[];
+}
