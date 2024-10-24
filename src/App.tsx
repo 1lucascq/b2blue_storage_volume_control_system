@@ -15,10 +15,8 @@ function App() {
 	};
 
 	useEffect(() => {
-		// You can add logic here to check if the user has already entered their name
-		// For example, you can use localStorage to persist the name
 		const storedName = localStorage.getItem('userName');
-		console.log(storedName);
+
 		if (storedName) {
 			setUserName(storedName);
 			setIsModalOpen(false);
