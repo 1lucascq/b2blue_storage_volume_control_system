@@ -29,7 +29,7 @@ const StorageStation: React.FC<StorageStationProps> = ({
     const [currentVolume, setCurrentVolume] = useState(volume);
 
     useEffect(() => {
-        if (volume >= AUTO_COLLECT_VOLUME && currentVolume === volume) {
+        if (volume >= AUTO_COLLECT_VOLUME && currentVolume === volume && !collectionInProgress) {
             startCollection();
         }
     }, [volume, currentVolume, startCollection]);
@@ -80,7 +80,7 @@ const StorageStation: React.FC<StorageStationProps> = ({
         );
     }
 
-    return (
+	return (
         <StyledCard>
             <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                 <StationHeader
