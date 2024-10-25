@@ -80,7 +80,6 @@ const StorageStation: React.FC<StorageStationProps> = ({
         );
     };
 
-    console.log('rendering StorageStation');
     return (
         <StyledCard>
             <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
