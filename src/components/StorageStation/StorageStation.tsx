@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography, Button, Slide, Slider, Box, Tooltip } from '@mui/material';
 import WarningIcon from '@mui/icons-material/Warning';
 import TapeWarning from './TapeWarning';
-import { StorageStationProps } from '../ts/types';
+import { StorageStationProps } from '../../ts/types';
 
 const StorageStation: React.FC<StorageStationProps> = ({
     stationName,

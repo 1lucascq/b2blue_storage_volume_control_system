@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import StorageStation from './StorageStation';
+import StorageStation from '../StorageStation/StorageStation';
 import { Box } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
-import { fetchData, insertReport, updateStation } from '../utils/utils';
-import { ControlPanelProps, Station } from '../ts/types';
+import { insertReport, updateStation } from '../../utils/api';
+import { ControlPanelProps, Station } from '../../ts/types';
 
 const ControlPanel: React.FC<ControlPanelProps> = ({ userName, stationsData }) => {
     const [stations, setStations] = useState<Station[]>(stationsData);

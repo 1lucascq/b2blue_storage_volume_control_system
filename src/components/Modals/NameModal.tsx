@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, TextField } from '@mui/material';
-import GenericModal from './GenericDialog';
+import GenericModal from '../shared/GenericDialog';
 
 interface NameModalProps {
     open: boolean;

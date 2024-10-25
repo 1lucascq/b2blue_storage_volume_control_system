@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { styled, keyframes } from '@mui/system';
-import { TapeWarningProps } from '../ts/types';
+import { TapeWarningProps } from '../../ts/types';
 
 const moveLeft = keyframes`
 	0% { transform: translateX(30%); }
