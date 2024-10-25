@@ -35,6 +35,7 @@ const theme = createTheme({
 // #E0F8D8 - A pale, fresh green.
 // #e0f3f1
 	typography: {
+		fontFamily: 'Helvetica, Arial, sans-serif',
 		h1: {
 			fontSize: '2.5rem',
 			fontWeight: 500,
