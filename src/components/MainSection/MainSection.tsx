@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import { Typography, Container, Fab, Box } from '@mui/material';
 
@@ -9,18 +8,25 @@ import NameModal from '../Modals/NameModal';
 import ReportsModal from '../Reports/ReportsModal';
 import Loading from '../shared/Loading';
 import { Station } from '../../ts/types';
-import { fetchData } from '../../utils/api';
-import useUserName from '../../utils/CustomHooks';
+import useUserName from '../hooks/useUserName';
+import { useFetchData } from '../hooks/useFetchQuery';
+import { styled } from '@mui/system';
+
+const MainBox = styled(Box)({
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '3em 0',
+});
 
 function MainSection() {
     const {
         data: stationsData,
         error,
         isLoading,
-    } = useQuery<Station[], Error>({
-        queryKey: ['stations'],
-        queryFn: () => fetchData('stations') as Promise<Station[]>,
-    });
+    } = useFetchData<Station[], Error>('stations', { queryKey: ['stations'] });
 
     const { userName, setUserName, isNameModalOpen, setIsNameModalOpen } = useUserName();
     const [isReportsModalOpen, setIsReportsModalOpen] = useState(false);
@@ -44,17 +50,7 @@ function MainSection() {
     }
 
     return (
-        <Box
-            component="main"
-            sx={{
-                flexGrow: 1,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                py: 5,
-            }}
-        >
+        <MainBox as="main">
             <Typography
                 variant="h3"
                 component="h1"
@@ -76,7 +72,7 @@ function MainSection() {
             >
                 <SummarizeIcon />
             </Fab>
-        </Box>
+        </MainBox>
     );
 }
 
