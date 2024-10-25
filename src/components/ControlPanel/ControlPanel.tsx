@@ -3,32 +3,21 @@ import StorageStation from '../StorageStation/StorageStation';
 import { Box } from '@mui/material';
 import { insertReport, updateStation } from '../../utils/api';
 import { ControlPanelProps, Station } from '../../ts/types';
+import { useStations } from '../hooks/useStations';
 
 const ControlPanel: React.FC<ControlPanelProps> = ({ userName, stationsData }) => {
-    const [stations, setStations] = useState<Station[]>(stationsData);
-
-    useEffect(() => {
-        if (stationsData) {
-            setStations(stationsData);
-        }
-    }, [stationsData]);
-
-    // if (error) return <div>Error: {error.message}</div>;
-
+	const { stations, setStations } = useStations(stationsData);	
     const handleStationUpdate = (index: number, updatedFields: Partial<Station>) => {
         const newStations = [...stations];
         newStations[index] = { ...newStations[index], ...updatedFields };
         updateStation('stations', updatedFields, newStations[index].id);
         setStations(newStations);
-        console.log('handleStationUpdate --> ', stations);
     };
 
     const handleStartCollection = async (index: number) => {
         const newValues = { collectionInProgress: true };
         await updateStation('stations', newValues, stations[index].id);
         handleStationUpdate(index, newValues);
-
-        // if (!updatedStation.collectionInProgress) throw new Error('Failed to update station');
     };
 
     function getReportData(index: number) {
@@ -46,13 +35,12 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ userName, stationsData }) =
     const handleCompleteCollection = async (index: number): Promise<Station> => {
         const newValues = { collectionInProgress: false, volume: 0 };
         const completedStation = await updateStation('stations', newValues, stations[index].id);
-        const report = await insertReport('collectionReports', getReportData(index));
+        await insertReport('collectionReports', getReportData(index));
         handleStationUpdate(index, newValues);
 
         return completedStation;
     };
 
-    console.log('rendering ControlPanel --> stations', stations);
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
             {stations.map((station, index) => (

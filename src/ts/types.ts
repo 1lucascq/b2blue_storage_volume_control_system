@@ -25,6 +25,11 @@ export interface Report {
     registeredBy: string;
 }
 
+export interface NameModalProps {
+    open: boolean;
+    onClose: (name: string) => void;
+}
+
 export interface ControlPanelProps {
     userName: string;
     stationsData: Station[];
