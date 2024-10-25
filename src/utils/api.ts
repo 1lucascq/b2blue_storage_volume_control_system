@@ -8,10 +8,10 @@ export const fetchData = async (table: string): Promise<Station[] | Report[]> =>
         throw new Error(error.message);
     }
 
-	if (table === 'collectionReports') {
-		return (data as Report[]).sort((a, b) => a.station.localeCompare(b.station));
-	}
-	console.log(data)
+    if (table === 'collectionReports') {
+        return (data as Report[]).sort((a, b) => a.station.localeCompare(b.station));
+    }
+
     return (data as Station[]).sort((a, b) => a.id - b.id) || [];
 };
 
@@ -42,32 +42,3 @@ export const insertReport = async (table: string, report: Report): Promise<Repor
 
     return (newReport[0] as Report) || [];
 };
-
-// export const stationReports = async (stationName: string) => {
-//     const { data: stationReportsData, error } = await supabase
-//         .from('stations')
-//         .select(
-//             `
-// 				id,
-// 				name,
-// 				collections: collectionReports(id, date)
-// 			`
-//         )
-//         .eq('name', stationName);
-
-//     // console.log('stationReportsData', stationReportsData);
-
-//     if (error) {
-//         throw new Error(error.message);
-//     } else if (stationReportsData) {
-//         const collectionsList = stationReportsData.map((station) => ({
-//             stationId: station.id,
-//             stationName: station.name,
-//             collection: station.collections.map((c) => c.id),
-//             collectionDate: station.collections.map((c) => c.date),
-//         }));
-
-//         // console.log('collectionsList', collectionsList);
-//         return collectionsList || [];
-//     }
-// };
