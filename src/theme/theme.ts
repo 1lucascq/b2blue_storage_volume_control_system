@@ -19,22 +19,6 @@ const theme = createTheme({
 			paper: '#F8F8FF',
 		}
 	},
-// #2AABE1 - Light blue.
-// #249BCD - Slightly darker than #2AABE1.
-// #1E8CB9 - Moderately darker.
-// #1A6DA5 - Slightly darker than #1E8CB9.
-// #166091 - A balanced dark blue.
-// #197DA5 - A shade between the previous ones.
-// #12537D - A deep dark shade.
-// #0E4669 - Darker blue tone.
-// #0F5F7D - Darker than the base blue.
-// #0A3955 - Darkest shade.
-// #CCFFCC - A very soft, pastel green.
-// #E6FFE6 - An almost white, light green.
-// #D9FFB3 - A gentle, light lime green.
-// #B3FFCC - A minty, light green.
-// #E0F8D8 - A pale, fresh green.
-// #e0f3f1
 	typography: {
 		fontFamily: 'Helvetica, Arial, sans-serif',
 		h1: {
