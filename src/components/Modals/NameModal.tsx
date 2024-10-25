@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 import { Button, TextField } from '@mui/material';
 import GenericModal from '../shared/GenericDialog';
-
-interface NameModalProps {
-    open: boolean;
-    onClose: (name: string) => void;
-}
+import { NameModalProps } from '../../ts/types';
 
 const NameModal: React.FC<NameModalProps> = ({ open, onClose }) => {
     const [name, setName] = useState('');
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+		localStorage.setItem('userName', name);
         onClose(name);
     };
 
@@ -33,7 +30,7 @@ const NameModal: React.FC<NameModalProps> = ({ open, onClose }) => {
                 </form>
             }
             actions={
-                <Button type="submit" form="name-form" color="primary">
+                <Button type="submit" form="name-form" color="primary" onClick={handleSubmit}>
                     Submit
                 </Button>
             }
