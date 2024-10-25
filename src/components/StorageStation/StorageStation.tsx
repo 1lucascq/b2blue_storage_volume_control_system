@@ -29,10 +29,14 @@ const StorageStation: React.FC<StorageStationProps> = ({
     const [currentVolume, setCurrentVolume] = useState(volume);
 
     useEffect(() => {
+        const startCollection = () => {
+            onStartCollection();
+        };
+
         if (volume >= AUTO_COLLECT_VOLUME && currentVolume === volume && !collectionInProgress) {
             startCollection();
         }
-    }, [volume, currentVolume, startCollection]);
+    }, [volume, currentVolume, collectionInProgress, onStartCollection]);
 
     useEffect(() => {
         setCurrentVolume(volume);
@@ -42,19 +46,15 @@ const StorageStation: React.FC<StorageStationProps> = ({
         setCurrentVolume(newValue as number);
     };
 
-    function startCollection() {
-        onStartCollection();
-    }
-
-    async function completeCollection() {
+    const completeCollection = async () => {
         await onCompleteCollection();
-    }
+    };
 
-    function handleReset() {
+    const handleReset = () => {
         setCurrentVolume(volume);
-    }
+    };
 
-    function displayValue() {
+    const displayValue = () => {
         if (currentVolume === volume) {
             return `${volume}%`;
         }
@@ -78,9 +78,10 @@ const StorageStation: React.FC<StorageStationProps> = ({
                 </Typography>
             </>
         );
-    }
+    };
 
-	return (
+    console.log('rendering StorageStation');
+    return (
         <StyledCard>
             <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                 <StationHeader

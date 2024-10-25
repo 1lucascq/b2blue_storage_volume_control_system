@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import StorageStation from '../StorageStation/StorageStation';
 import { Box } from '@mui/material';
 import { insertReport, updateStation } from '../../utils/api';
@@ -6,19 +6,26 @@ import { ControlPanelProps, Station } from '../../ts/types';
 import { useStations } from '../hooks/useStations';
 
 const ControlPanel: React.FC<ControlPanelProps> = ({ userName, stationsData }) => {
-	const { stations, setStations } = useStations(stationsData);	
-    const handleStationUpdate = (index: number, updatedFields: Partial<Station>) => {
-        const newStations = [...stations];
-        newStations[index] = { ...newStations[index], ...updatedFields };
-        updateStation('stations', updatedFields, newStations[index].id);
-        setStations(newStations);
-    };
+    const { stations, setStations } = useStations(stationsData);
 
-    const handleStartCollection = async (index: number) => {
-        const newValues = { collectionInProgress: true };
-        await updateStation('stations', newValues, stations[index].id);
-        handleStationUpdate(index, newValues);
-    };
+    const handleStationUpdate = useCallback(
+        (index: number, updatedFields: Partial<Station>) => {
+            const newStations = [...stations];
+            newStations[index] = { ...newStations[index], ...updatedFields };
+            updateStation('stations', updatedFields, newStations[index].id);
+            setStations(newStations);
+        },
+        [stations, setStations]
+    );
+
+    const handleStartCollection = useCallback(
+        async (index: number) => {
+            const newValues = { collectionInProgress: true };
+            await updateStation('stations', newValues, stations[index].id);
+            handleStationUpdate(index, newValues);
+        },
+        [stations, handleStationUpdate]
+    );
 
     function getReportData(index: number) {
         const date = new Date();
