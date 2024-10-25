@@ -32,7 +32,7 @@ const StorageStation: React.FC<StorageStationProps> = ({
         if (volume >= AUTO_COLLECT_VOLUME && currentVolume === volume) {
             startCollection();
         }
-    }, [volume, currentVolume]);
+    }, [volume, currentVolume, startCollection]);
 
     useEffect(() => {
         setCurrentVolume(volume);

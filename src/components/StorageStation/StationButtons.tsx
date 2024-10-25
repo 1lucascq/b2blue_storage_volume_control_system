@@ -1,6 +1,6 @@
 // src/components/StorageStation/StationButtons.tsx
 import React from 'react';
-import { Box, styled } from '@mui/material';
+import { styled } from '@mui/material';
 import ActionButton from './ActionButton';
 import { StationButtonsProps } from '../../ts/types';
 
