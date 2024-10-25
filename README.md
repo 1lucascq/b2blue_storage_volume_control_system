@@ -33,43 +33,43 @@ O projeto está organizado da seguinte forma:
 |-- public
 |-- README.md
 |-- src
-|   |-- App.tsx
-|   |-- assets
-|   |-- components
-|       |-- ControlPanel
-|           |-- ControlPanel.tsx
-|       |-- Footer
-|           |-- Footer.tsx
-|       |-- Header
-|           |-- Header.tsx
-|       |-- hooks
-|           |-- useFetchData.ts
-|           |-- useStations.ts
-|           |-- useUserName.ts
-|       |-- MainSection
-|           |-- MainSection.tsx
-|       |-- Modals
-|           |-- NameModal.tsx
-|       |-- Reports
-|           |-- ReportsModal.tsx
-|           |-- ReportsTable.tsx
-|           |-- SelectReport.tsx
-|       |-- shared
-|           |-- GenericDialog.tsx
-|           |-- Loading.tsx
-|       |-- StorageStation
-|           |-- StorageStation.tsx
-|   |-- declaration.d.ts
-|   |-- index.css
-|   |-- index.tsx
-|   |-- services
-|       |-- supabaseClient.ts
-|   |-- theme
-|       |-- theme.ts
-|   |-- ts
-|       |-- types.ts
-|   |-- utils
-|       |-- api.ts
+|---|-- App.tsx
+|---|-- assets
+|---|-- components
+|-------|-- ControlPanel
+|-----------|-- ControlPanel.tsx
+|-------|-- Footer
+|-----------|-- Footer.tsx
+|-------|-- Header
+|-----------|-- Header.tsx
+|-------|-- hooks
+|-----------|-- useFetchData.ts
+|-----------|-- useStations.ts
+|-----------|-- useUserName.ts
+|-------|-- MainSection
+|-----------|-- MainSection.tsx
+|-------|-- Modals
+|-----------|-- NameModal.tsx
+|-------|-- Reports
+|-----------|-- ReportsModal.tsx
+|-----------|-- ReportsTable.tsx
+|-----------|-- SelectReport.tsx
+|-------|-- shared
+|-----------|-- GenericDialog.tsx
+|-----------|-- Loading.tsx
+|-------|-- StorageStation
+|-----------|-- StorageStation.tsx
+|---|-- declaration.d.ts
+|---|-- index.css
+|---|-- index.tsx
+|---|-- services
+|-------|-- supabaseClient.ts
+|---|-- theme
+|-------|-- theme.ts
+|---|-- ts
+|-------|-- types.ts
+|---|-- utils
+|-------|-- api.ts
 |-- tsconfig.json
 
 
