@@ -1,17 +1,16 @@
 import { useState } from 'react';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import { Typography, Container, Fab, Box } from '@mui/material';
+import { styled } from '@mui/system';
 
 import ControlPanel from '../ControlPanel/ControlPanel';
-
 import NameModal from '../Modals/NameModal';
 import ReportsModal from '../Reports/ReportsModal';
 import Loading from '../shared/Loading';
-import { Station } from '../../ts/types';
+import ErrorComponent from '../shared/Error';
 import useUserName from '../hooks/useUserName';
 import { useFetchData } from '../hooks/useFetchQuery';
-import { styled } from '@mui/system';
-import ErrorComponent from '../shared/Error';
+import { Station } from '../../ts/types';
 
 const MainBox = styled(Box)({
     flexGrow: 1,
@@ -27,7 +26,6 @@ function MainSection() {
         error,
         isLoading,
     } = useFetchData<Station[], Error>('stations', { queryKey: ['stations'] });
-
     const { userName, setUserName, isNameModalOpen, setIsNameModalOpen } = useUserName();
     const [isReportsModalOpen, setIsReportsModalOpen] = useState(false);
 
@@ -65,8 +63,11 @@ function MainSection() {
             <Container maxWidth="md" sx={{ pb: 10 }}>
                 <ControlPanel userName={userName} stationsData={stationsData!} />
             </Container>
+
             <NameModal open={isNameModalOpen} onClose={handleNameModalClose} />
+
             <ReportsModal open={isReportsModalOpen} onClose={handleReportsModalClose} />
+
             <Fab
                 color="primary"
                 aria-label="reports"
