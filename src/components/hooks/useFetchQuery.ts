@@ -11,7 +11,5 @@ export const useFetchData = <TData extends Station[] | Report[], TError>(
         ...options,
     });
 
-    console.log('oi', result);
-
     return result;
 };
