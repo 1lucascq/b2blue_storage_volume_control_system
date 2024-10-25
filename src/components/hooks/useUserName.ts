@@ -4,7 +4,7 @@ const useUserName = () => {
     const [userName, setUserName] = useState<string>('');
     const [isNameModalOpen, setIsNameModalOpen] = useState<boolean>(true);
 
-    useEffect(() => {
+	useEffect(() => {
         const storedName = localStorage.getItem('userName');
 
         if (storedName) {
