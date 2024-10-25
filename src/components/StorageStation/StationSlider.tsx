@@ -44,7 +44,7 @@ const StationSlider: React.FC<StationSliderProps> = ({ value, disabled, onChange
                         background: getSliderColor(value),
                     },
                     '& .MuiSlider-thumb': {
-                        backgroundColor: 'white',
+                        backgroundColor: disabled ? '#e8e8e8' : 'white',
                     },
                 }}
             />
