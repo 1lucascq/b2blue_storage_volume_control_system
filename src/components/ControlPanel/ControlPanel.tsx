@@ -28,12 +28,10 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ userName, stationsData }) =
     );
 
     function getReportData(index: number) {
-        const date = new Date();
-        const gmt3Offset = 180;
-        const adjustedISODate = new Date(date.getTime() - gmt3Offset * 60 * 1000).toISOString();
+        const date = new Date().toISOString();
 
         return {
-            date: adjustedISODate,
+            date: date,
             station: stations[index].name,
             registeredBy: userName,
         };
