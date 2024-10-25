@@ -54,6 +54,9 @@ const theme = createTheme({
 		},
 		body2: {
 			fontSize: '0.875rem',
+			'@media (max-width:500px)': {
+				fontSize: '.7rem',
+			},
 		},
 	},
 	breakpoints: {
