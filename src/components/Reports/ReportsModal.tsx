@@ -10,6 +10,7 @@ import { Report, ReportsModalProps } from '../../ts/types';
 import GenericModal from '../shared/GenericDialog';
 import SelectReport from './SelectReport';
 import { useFetchData } from '../hooks/useFetchQuery';
+import ErrorComponent from '../shared/Error';
 
 const ReportsModal: React.FC<ReportsModalProps> = ({ open, onClose }) => {
     const [filter, setFilter] = useState<string>('all');
@@ -40,15 +41,7 @@ const ReportsModal: React.FC<ReportsModalProps> = ({ open, onClose }) => {
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     {isLoading ? (
                         <CircularProgress />
-                    ) : error ? (
-                        <>
-                            <Typography variant="h2">OPS!</Typography>
-                            <Typography>
-                                Tivemos problemas com o servidor do Banco de Dados. Tente novamente
-                                em alguns instantes enquanto o servidor é iniciado.
-                            </Typography>
-                        </>
-                    ) : (
+                    ) : error ? <ErrorComponent /> : (
                         <SelectReport
                             filter={filter}
                             handleFilterChange={handleFilterChange}

@@ -11,6 +11,7 @@ import { Station } from '../../ts/types';
 import useUserName from '../hooks/useUserName';
 import { useFetchData } from '../hooks/useFetchQuery';
 import { styled } from '@mui/system';
+import ErrorComponent from '../shared/Error';
 
 const MainBox = styled(Box)({
     flexGrow: 1,
@@ -48,6 +49,10 @@ function MainSection() {
     if (isLoading) {
         return <Loading />;
     }
+
+	if (error) {
+		return <ErrorComponent />;
+	}
 
     return (
         <MainBox as="main">
