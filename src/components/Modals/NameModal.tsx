@@ -34,7 +34,7 @@ const NameModal: React.FC<NameModalProps> = ({ open, onClose }) => {
                     Submit
                 </Button>
             }
-            onClose={() => onClose(name)}
+            onClose={() => {}}
         />
     );
 };
