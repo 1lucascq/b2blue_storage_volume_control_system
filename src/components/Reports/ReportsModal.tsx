@@ -1,11 +1,6 @@
 // src/components/ReportsModal.tsx
 import React, { useState } from 'react';
-import {
-    Button,
-    CircularProgress,
-    SelectChangeEvent,
-    Typography,
-} from '@mui/material';
+import { Button, CircularProgress, SelectChangeEvent } from '@mui/material';
 import { Report, ReportsModalProps } from '../../ts/types';
 import GenericModal from '../shared/GenericDialog';
 import SelectReport from './SelectReport';
@@ -41,7 +36,9 @@ const ReportsModal: React.FC<ReportsModalProps> = ({ open, onClose }) => {
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     {isLoading ? (
                         <CircularProgress />
-                    ) : error ? <ErrorComponent /> : (
+                    ) : error ? (
+                        <ErrorComponent />
+                    ) : (
                         <SelectReport
                             filter={filter}
                             handleFilterChange={handleFilterChange}
