@@ -11,14 +11,14 @@ import {
 import { ReportsTableProps } from '../../ts/types';
 
 function filterDate(date: string) {
-    const parsedDate = new Date(date);
+	const parsedDate = new Date(date);
     const day = parsedDate.getDate();
     const month = parsedDate.getMonth();
     const year = parsedDate.getFullYear();
     const hours = parsedDate.getHours();
     const minutes = parsedDate.getMinutes();
 
-    return `${day}/${month}/${year} - ${hours}:${minutes}`;
+    return `${day}/${month + 1}/${year} - ${hours}:${minutes}`;
 }
 
 const ReportsTable: React.FC<ReportsTableProps> = ({ reports }) => {
