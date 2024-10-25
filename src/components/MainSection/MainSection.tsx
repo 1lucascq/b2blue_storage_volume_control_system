@@ -19,7 +19,6 @@ const MainBox = styled(Box)({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '3em 0',
 });
 
 function MainSection() {
@@ -32,9 +31,16 @@ function MainSection() {
     const { userName, setUserName, isNameModalOpen, setIsNameModalOpen } = useUserName();
     const [isReportsModalOpen, setIsReportsModalOpen] = useState(false);
 
+    if (isLoading) {
+        return <Loading />;
+    }
+
+    if (error) {
+        return <ErrorComponent />;
+    }
+
     const handleNameModalClose = (name: string) => {
-        localStorage.setItem('userName', name);
-        setUserName(name);
+		setUserName(name);
         setIsNameModalOpen(false);
     };
 
@@ -45,14 +51,6 @@ function MainSection() {
     const handleReportsModalClose = () => {
         setIsReportsModalOpen(false);
     };
-
-    if (isLoading) {
-        return <Loading />;
-    }
-
-	if (error) {
-		return <ErrorComponent />;
-	}
 
     return (
         <MainBox as="main">
@@ -72,7 +70,15 @@ function MainSection() {
             <Fab
                 color="primary"
                 aria-label="reports"
-                sx={{ position: 'fixed', bottom: 80, right: 50 }}
+                sx={{
+                    position: 'fixed',
+                    bottom: 80,
+                    right: 50,
+                    '@media (max-width: 600px)': {
+                        bottom: 20,
+                        right: 20,
+                    },
+                }}
                 onClick={handleReportsModalOpen}
             >
                 <SummarizeIcon />
