@@ -2,21 +2,14 @@
 import React, { useState } from 'react';
 import {
     Button,
-    Select,
-    MenuItem,
-    FormControl,
-    InputLabel,
     CircularProgress,
     SelectChangeEvent,
     Typography,
-    OutlinedInput,
 } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
-import { fetchData } from '../../utils/api';
 import { Report, ReportsModalProps } from '../../ts/types';
-import ReportsTable from './ReportsTable';
 import GenericModal from '../shared/GenericDialog';
 import SelectReport from './SelectReport';
+import { useFetchData } from '../hooks/useFetchQuery';
 
 const ReportsModal: React.FC<ReportsModalProps> = ({ open, onClose }) => {
     const [filter, setFilter] = useState<string>('all');
@@ -25,9 +18,8 @@ const ReportsModal: React.FC<ReportsModalProps> = ({ open, onClose }) => {
         data: reports,
         error,
         isLoading,
-    } = useQuery<Report[], Error>({
+    } = useFetchData<Report[], Error>('collectionReports', {
         queryKey: ['reports'],
-        queryFn: () => fetchData('collectionReports') as Promise<Report[]>,
         enabled: open,
     });
 
