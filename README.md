@@ -22,7 +22,7 @@ Este projeto é um sistema de controle de volume de armazenamento para estaçõe
 			- [`useUserName`](#useusername)
 		- [Sumário](#sumário)
 
-## Estrutura do Projeto
+## Objetivo do Projeto
 
 O objetivo do projeto é possibilitar para o usuário a possibilidade de gerenciar o volume e registrar coletas de Estações de Armazenamento de Resíduos. Além disso, os usuários poderão visualizar relatórios das coletas registradas em um banco de dados externo. Nota-se que algumas funcionalidades foram intencionalmente simplificadas para manter o foco no escopo do projeto.
 
