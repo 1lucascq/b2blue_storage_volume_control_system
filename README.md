@@ -1,46 +1,139 @@
-# Getting Started with Create React App
+# B2Blue - Controle de Volume de Armazenamento de Resíduos
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este projeto é um sistema de controle de volume de armazenamento para estações de resíduos, desenvolvido usando React e Material-UI.
 
-## Available Scripts
+## Índice
 
-In the project directory, you can run:
+- [B2Blue - Controle de Volume de Armazenamento de Resíduos](#b2blue---controle-de-volume-de-armazenamento-de-resíduos)
+	- [Índice](#índice)
+	- [Estrutura do Projeto](#estrutura-do-projeto)
+	- [Principais Componentes](#principais-componentes)
+		- [StorageStation](#storagestation)
+			- [Props](#props)
+		- [ControlPanel](#controlpanel)
+			- [Props](#props-1)
+		- [ReportsModal](#reportsmodal)
+			- [Props](#props-2)
+		- [API](#api)
+			- [Funções](#funções)
+		- [Hooks](#hooks)
+			- [`useFetchData`](#usefetchdata)
+			- [`useStations`](#usestations)
+			- [`useUserName`](#useusername)
+		- [Sumário](#sumário)
 
-### `npm start`
+## Estrutura do Projeto
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+O projeto está organizado da seguinte forma:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+|-- .env
+|-- .gitignore
+|-- .prettierrc
+|-- package.json
+|-- public
+|-- README.md
+|-- src
+|   |-- App.tsx
+|   |-- assets
+|   |-- components
+|       |-- ControlPanel
+|           |-- ControlPanel.tsx
+|       |-- Footer
+|           |-- Footer.tsx
+|       |-- Header
+|           |-- Header.tsx
+|       |-- hooks
+|           |-- useFetchData.ts
+|           |-- useStations.ts
+|           |-- useUserName.ts
+|       |-- MainSection
+|           |-- MainSection.tsx
+|       |-- Modals
+|           |-- NameModal.tsx
+|       |-- Reports
+|           |-- ReportsModal.tsx
+|           |-- ReportsTable.tsx
+|           |-- SelectReport.tsx
+|       |-- shared
+|           |-- GenericDialog.tsx
+|           |-- Loading.tsx
+|       |-- StorageStation
+|           |-- StorageStation.tsx
+|   |-- declaration.d.ts
+|   |-- index.css
+|   |-- index.tsx
+|   |-- services
+|       |-- supabaseClient.ts
+|   |-- theme
+|       |-- theme.ts
+|   |-- ts
+|       |-- types.ts
+|   |-- utils
+|       |-- api.ts
+|-- tsconfig.json
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Principais Componentes
 
-### `npm run build`
+### StorageStation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+O componente `StorageStation` representa uma estação de armazenamento individual. Ele exibe o nome da estação, o volume atual e o status da coleta. Também fornece controles para iniciar, atualizar e concluir o processo de coleta.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Props
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- `stationName`: O nome da estação.
+- `volume`: O volume atual da estação.
+- `collectionInProgress`: Indica se uma coleta está em andamento.
+- `onStartCollection`: Função para iniciar a coleta.
+- `onStationChange`: Função para gerenciar mudanças na estação.
+- `onCompleteCollection`: Função para concluir a coleta.
 
-### `npm run eject`
+### ControlPanel
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+O componente `ControlPanel` é responsável por gerenciar e exibir várias estações de armazenamento. Ele utiliza o componente `StorageStation` para exibir cada estação e gerencia a lógica para atualização dos dados das estações e gerenciamento das coletas.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Props
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- `userName`: O nome do usuário.
+- `stationsData`: Um array contendo dados das estações.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### ReportsModal
 
-## Learn More
+O componente `ReportsModal` exibe um modal com todos os relatórios buscados do banco de dados alocado na `Supabase`. Permite filtrar relatórios por estação e fornece uma visualização detalhada de cada relatório com data da coleta e o responsável pela confirmação da coleta.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Props
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- `open`: Booleano que indica se o modal está aberto.
+- `onClose`: Função para fechar o modal.
+
+### API
+
+O arquivo `api.ts` contém funções utilitárias para interagir com a API do Supabase. Essas funções incluem busca de dados, atualização de dados de estação e inserção de relatórios.
+
+
+#### Funções
+
+- `fetchData`: Busca dados de uma tabela especificada.
+- `updateStation`: Atualiza os dados de uma estação.
+- `insertReport`: Insere um novo relatório no banco de dados.
+- `fetchReports`: Busca todos os relatórios do banco de dados.
+
+### Hooks
+
+A pasta `hooks` contém hooks personalizados utilizados em todo o projeto.
+
+#### `useFetchData`
+
+Um hook personalizado para buscar dados usando React Query. Ele simplifica a busca de dados e o gerenciamento de estado.
+
+#### `useStations`
+
+Um hook personalizado para gerenciar o estado das estações. Ele fornece gerenciamento de estado para a lista de estações e funções para atualizar esse estado.
+
+#### `useUserName`
+
+Um hook personalizado para gerenciar o nome do usuário. Ele lida com a recuperação do nome do usuário do armazenamento local e o atualiza conforme necessário.
+
+### Sumário
+
+Esta documentação fornece uma visão geral da estrutura do projeto e descrições dos principais componentes e algumas funções utilitárias.
