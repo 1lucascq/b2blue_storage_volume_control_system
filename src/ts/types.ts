@@ -1,3 +1,5 @@
+import { SelectChangeEvent } from "@mui/material";
+
 declare module '@mui/material/styles' {
     interface Palette {
         tertiary: Palette['primary'];
@@ -48,4 +50,11 @@ export interface ReportsModalProps {
 
 export interface ReportsTableProps {
     reports: Report[];
+}
+
+export interface SelectReportProps {
+	filter: string;
+    handleFilterChange: (event: SelectChangeEvent<string>) => void;
+	filteredReports: any[];
+	options: string[];
 }
